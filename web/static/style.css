@@ -1,0 +1,30 @@
+.fixed-size-badge-red {
+  font-size: 0.8rem; /* Adjust as needed */
+  padding: 0.3em 0.6em; /* Adjust as needed */
+  min-width: 2em; /* Ensure minimum width for single digits */
+  height: 2em; /* Ensure consistent height */
+  display: inline-flex; /* Use flexbox for centering content */
+  align-items: center;
+  justify-content: center;
+  background-color: red;
+}
+.fixed-size-badge-orange {
+  font-size: 0.8rem; /* Adjust as needed */
+  padding: 0.3em 0.6em; /* Adjust as needed */
+  min-width: 2em; /* Ensure minimum width for single digits */
+  height: 2em; /* Ensure consistent height */
+  display: inline-flex; /* Use flexbox for centering content */
+  align-items: center;
+  justify-content: center;
+  background-color: orange;
+}
+.fixed-size-badge-green {
+  font-size: 0.8rem; /* Adjust as needed */
+  padding: 0.3em 0.6em; /* Adjust as needed */
+  min-width: 2em; /* Ensure minimum width for single digits */
+  height: 2em; /* Ensure consistent height */
+  display: inline-flex; /* Use flexbox for centering content */
+  align-items: center;
+  justify-content: center;
+  background-color: green;
+}

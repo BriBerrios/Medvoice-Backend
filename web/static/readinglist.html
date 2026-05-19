@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Admin Dashboard</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">MedVoice Alpha</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="readinglist.html">Reading List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="deviceids.html">Device IDs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="analyzerlog.html">Analyzer Log</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href = "flowhistory.html">Flow History</a>
+                    </li>
+                    <!--<li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                    </li>-->
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                </div>
+            </div>
+        </nav>
+        <!--<div class="row justify-content-center">
+            <div class="col-auto">
+                <h3>Patient List</h3>
+            </div>
+        </div>-->
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <div class="tbl-container bdr">
+                    <p id="patienttable"></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal modal-lg fade bs-example-modal-new" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modaltitle">Modal title</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body" id="patientdetailtable">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<h3>Patient Response Table</h3>
+        <p id="patientresponsetable"></p>
+        <h3>Patient Symptom Table</h3>
+        <p id="patientsymptomtable"></p>
+        <h3>Color Code History</h3>
+        <p id="colorcodehistory"></p>-->
+        <script>
+            const xmlhttp = new XMLHttpRequest();
+            xmlhttp.onload = function() {
+                myObj = JSON.parse(this.responseText);
+                text = "<table border='1' class='table'>";
+                text += "<thead class='thead-dark'>";
+                text += "<th scope='col'>Index</th>";
+                text += "<th scope='col'>Timestamp</th>";
+                text += "<th scope='col'>SP02</th>";
+                text += "<th scope='col'>BPM</th>";
+                text += "<th scope='col'>Patient ID</th>";
+                text += "</thead>";
+                text += "<tbody>";
+                for (x in myObj) {
+                    text += "<tr><td scope='row'>" + myObj[x][0] + "</td>";
+                    text += "<td scope='row'>" + myObj[x][1] + "</td>";
+                    text += "<td scope='row'>" + myObj[x][2] + "</td>";
+                    text += "<td scope='row'>" + myObj[x][3] + "</td>";
+                    text += "<td scope='row'>" + myObj[x][4] + "</td>";
+                    text += "</tr>";
+                }
+                text += "</tbody>"
+                text += "</table>";
+                document.getElementById("patienttable").innerHTML = text;
+            }
+            xmlhttp.open("GET", "http://54.226.91.1:22099/api/patientreadings");
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send();
+
+            console.log("TESTING!!");
+            const xmlhttp2 = new XMLHttpRequest();
+            xmlhttp2.onload = function() {
+                myObj2 = JSON.parse(this.responseText);
+                text2 = "<table border='1' class='table'>";
+                text2 += "<thead class='thead-dark'>";
+                //text2 += "<th scope='col'>First Name</th>";
+                //text2 += "<th scope='col'>Last Name</th>";
+                //text2 += "<th scope='col'>ID</th>";
+                text2 += "<th scope='col'>Birthday</th>";
+                text2 += "<th scope='col'>Medical Provisioner</th>";
+                text2 += "<th scope='col'>Medical Condition(s)</th>";
+                text2 += "<th scope='col'>SPO2</th>";
+                text2 += "<th scope='col'>Pulse</th>";
+                text2 += "<th scope='col'>Symptom(s)</th>";
+                text2 += "</thead>";
+                text2 += "<tbody>";
+                for (y in myObj2) {
+                    //text2 += "<tr><td scope='row'>" + myObj2[y][0] + "</td>";
+                    //text2 += "<td scope='row'>" + myObj2[y][1] + "</td>";
+                    //text2 += "<td scope='row'>" + myObj2[y][2] + "</td>";
+                    text2 += "<tr><td scope='row'>" + myObj2[y][10] + "</td>";
+                    text2 += "<td scope='row'>" + myObj2[y][4] + "</td>";
+                    text2 += "<td scope='row'>" + myObj2[y][5] + "</td>";
+                    text2 += "<td scope='row'>" + myObj2[y][6] + "</td>";
+                    text2 += "<td scope='row'>" + myObj2[y][7] + "</td>";
+                    text2 += "<td scope='row'>" + myObj2[y][9] + "</td>";
+                    text2 += "</tr>";
+                    fullname = myObj2[y][0] + " " + myObj2[y][1] + " - Details";
+                }
+                text2 += "</tbody>"
+                text2 += "</table>";
+                document.getElementById("patientdetailtable").innerHTML = text2;
+                console.log(fullname)
+                document.getElementById("modaltitle").innerHTML = fullname;
+            }
+            xmlhttp2.open("GET", "http://127.0.0.1:5000/api/patientdetail/1");
+            xmlhttp2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp2.send();
+        </script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </body>
+</html>
